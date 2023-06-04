@@ -2,10 +2,10 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "sample nodejs",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "debug": "nodemon --inspect index.js",
+    "start": "nodemon src/index.js",
+    "debug": "nodemon --inspect src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +18,11 @@
   "author": "Tri Bien",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.22"
   }
 }
