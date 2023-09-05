@@ -22,10 +22,60 @@
                         <a href="/courses/{{this._id}}/edit">Edit</a>
                     </td>
                     <td>
-                        <a href="">Delete</a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#delete-course-modal" 
+                            data-bs-id="{{this._id}}" data-bs-name="{{this.name}}">Delete</a>
                     </td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+
+<!-- Delete form -->
+<form id="delete-course-form" method="POST"></form>
+
+
+<!-- Confirm Delete a course -->
+<div id="delete-course-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detete the course</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="delete-modal-body"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="delete-course-button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('delete-course-modal')
+    const deleteForm = document.getElementById('delete-course-form') 
+    const deleteBtn = document.getElementById('delete-course-button') 
+    let id;
+
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        id = button.getAttribute('data-bs-id')
+        const courseName = button.getAttribute('data-bs-name')
+
+        console.log(id, courseName)
+
+        // Update the modal's content.
+        var modalBodyInput = deleteModal.querySelector('.delete-modal-body')
+        modalBodyInput.innerHTML = `Course '${courseName}' will be <strong>deleted</strong>`
+    })
+
+    deleteBtn.onclick = () => {
+        deleteForm.action = `/courses/${id}?_method=DELETE`
+        deleteForm.submit()
+    }
+
+</script>
