@@ -1,6 +1,13 @@
 @import 'variables';
 
 h1 {
-    color: $primary-color,
-    
+    color: $primary-color;
+    background-color: rgb(251, 251, 255);
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 4px;
 }

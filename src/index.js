@@ -2,11 +2,19 @@ const express = require('express');
 const morgan = require('morgan');
 const engine = require('express-handlebars').engine;
 const path = require('path');
+var methodOverride = require('method-override');
 
 const routes = require('./routes');
 
+// connect to MongoDB
+const db = require('./config/db');
+db.connect();
+
 const app = express();
 const port = 3000;
+
+// override with POST having ?_method=PUT
+app.use(methodOverride('_method'));
 
 // Use middleware to catch request body
 app.use(
@@ -27,6 +35,9 @@ app.engine(
     '.hbs',
     engine({
         extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a + b,
+        },
     })
 );
 app.set('view engine', '.hbs');

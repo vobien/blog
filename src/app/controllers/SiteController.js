@@ -1,7 +1,17 @@
+const Course = require('../models/Course');
+const { toObjects } = require('../../utils/mongoose');
+
 class SiteController {
     // [GET] /
-    index(req, res) {
-        res.render('home');
+    async index(req, res, next) {
+        try {
+            const courses = await Course.find({});
+            res.render('home', {
+                courses: toObjects(courses),
+            });
+        } catch (err) {
+            next(err);
+        }
     }
 
     // [GET] /search
@@ -10,4 +20,4 @@ class SiteController {
     }
 }
 
-export default new SiteController();
+module.exports = new SiteController();
