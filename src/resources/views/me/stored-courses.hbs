@@ -1,5 +1,6 @@
 <div class="mt-4">
     <h3>My courses</h3>
+    <a href="/me/trash/courses">My Trash ({{deletedCount}})</a>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -24,6 +25,14 @@
                     <td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#delete-course-modal" 
                             data-bs-id="{{this._id}}" data-bs-name="{{this.name}}">Delete</a>
+                    </td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        You haven't added any course yet. 
+                        Please add new courses at 
+                        <a href="/courses/create">Add a new course</a>
                     </td>
                 </tr>
             {{/each}}

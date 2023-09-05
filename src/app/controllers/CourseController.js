@@ -58,7 +58,17 @@ class CourseController {
     async update(req, res, next) {
         try {
             await Course.updateOne({ _id: req.params.id }, req.body);
-            res.redirect('/me/stored/courses');
+            res.redirect('back');
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    // PATCH /courses/:id/restore
+    async restore(req, res, next) {
+        try {
+            await Course.restore({ _id: req.params.id });
+            res.redirect('back');
         } catch (err) {
             next(err);
         }
@@ -66,6 +76,17 @@ class CourseController {
 
     // DELETE /courses/:id
     async delete(req, res, next) {
+        try {
+            const result = await Course.delete({ _id: req.params.id });
+            console.log(result);
+            res.redirect('/me/stored/courses');
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    // DELETE /courses/:id/force
+    async forceDelete(req, res, next) {
         try {
             const result = await Course.deleteOne({ _id: req.params.id });
             console.log(result);

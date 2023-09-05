@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const Course = new Schema(
@@ -13,4 +14,9 @@ const Course = new Schema(
     }
 );
 
+Course.plugin(mongooseDelete, {
+    deletedAt: true,
+    overrideMethods: 'all',
+    use$neOperator: true,
+});
 module.exports = mongoose.model('Course', Course);
