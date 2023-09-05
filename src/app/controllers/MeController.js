@@ -8,7 +8,9 @@ class MeController {
             const deletedCount = await Course.countDocumentsDeleted({
                 $or: [{ deleted: true }],
             });
-            const courses = await Course.find({});
+
+            const courses = await Course.find({}).sortable(req);
+
             res.render('me/stored-courses', {
                 deletedCount,
                 courses: toObjects(courses),

@@ -4,6 +4,8 @@ const engine = require('express-handlebars').engine;
 const path = require('path');
 var methodOverride = require('method-override');
 
+const sortMiddleware = require('./app/middleware/sortMiddleware');
+
 const routes = require('./routes');
 
 // connect to MongoDB
@@ -24,6 +26,9 @@ app.use(
 );
 app.use(express.json());
 
+// use custom middleware
+app.use(sortMiddleware);
+
 // Load static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -35,9 +40,7 @@ app.engine(
     '.hbs',
     engine({
         extname: '.hbs',
-        helpers: {
-            sum: (a, b) => a + b,
-        },
+        helpers: require('./app/middleware/handlebars'),
     })
 );
 app.set('view engine', '.hbs');

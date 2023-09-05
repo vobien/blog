@@ -58,7 +58,7 @@ class CourseController {
     async update(req, res, next) {
         try {
             await Course.updateOne({ _id: req.params.id }, req.body);
-            res.redirect('back');
+            res.redirect('/me/stored/courses');
         } catch (err) {
             next(err);
         }
